@@ -8,6 +8,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo";
+import TimelineDemo from "@/components/timeline-demo";
 import heroBanner from "@/assets/hero-banner.jpg";
 import building1 from "@/assets/building-1.jpg";
 import building2 from "@/assets/building-2.jpg";
@@ -167,72 +168,9 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Section */}
+      {/* About Section - Timeline */}
       <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <img
-                src={aboutTeam}
-                alt="About PropertyHub"
-                className="rounded-2xl shadow-strong w-full"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <h2 className="text-4xl font-display font-bold">
-                Building Trust, Creating Homes
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                With over 25 years of excellence in real estate, PropertyHub has been
-                transforming dreams into reality. Our commitment to quality,
-                transparency, and customer satisfaction has made us a trusted name in
-                the industry.
-              </p>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                From residential complexes to commercial spaces, we deliver projects
-                that blend modern architecture with sustainable living, creating
-                communities that thrive.
-              </p>
-
-              <div className="grid grid-cols-2 gap-6 pt-6">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="text-center p-4 rounded-lg bg-primary/5 border border-primary/20"
-                  >
-                    <stat.icon className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-primary">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              <Button asChild size="lg">
-                <Link to="/about">
-                  Learn More About Us <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
-        </div>
+        <TimelineDemo />
       </section>
 
       {/* Testimonials */}
