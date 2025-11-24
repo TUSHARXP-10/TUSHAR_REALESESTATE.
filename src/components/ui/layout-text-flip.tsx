@@ -23,17 +23,17 @@ export const LayoutTextFlip = ({
   }, [words.length, duration]);
 
   return (
-    <>
+    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 sm:gap-4">
       <motion.span
         layoutId="subtext"
-        className="text-5xl md:text-6xl font-display font-bold tracking-tight drop-shadow-lg"
+        className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight"
       >
         {text}
       </motion.span>
 
       <motion.span
         layout
-        className="relative w-fit overflow-hidden rounded-md border border-primary/20 bg-background px-4 py-2 font-display text-5xl md:text-6xl font-bold tracking-tight text-primary shadow-lg ring-1 ring-primary/10 drop-shadow-lg"
+        className="relative overflow-hidden rounded-full bg-white px-6 py-3 md:px-8 md:py-4 font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary shadow-xl"
       >
         <AnimatePresence mode="popLayout">
           <motion.span
@@ -53,6 +53,6 @@ export const LayoutTextFlip = ({
           </motion.span>
         </AnimatePresence>
       </motion.span>
-    </>
+    </div>
   );
 };
