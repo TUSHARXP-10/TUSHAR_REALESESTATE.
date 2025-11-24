@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo";
 import TimelineDemo from "@/components/timeline-demo";
+import LayoutTextFlipDemo from "@/components/layout-text-flip-demo";
 import heroBanner from "@/assets/hero-banner.jpg";
 import building1 from "@/assets/building-1.jpg";
 import building2 from "@/assets/building-2.jpg";
@@ -79,15 +80,8 @@ const Index = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
           <div className="relative container mx-auto px-4 h-full flex items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-3xl text-white space-y-6"
-            >
-              <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight">
-                Find Your Perfect Home
-              </h1>
+            <div className="max-w-3xl text-white space-y-6">
+              <LayoutTextFlipDemo />
               <p className="text-xl text-white/90">
                 Discover exceptional properties across India's prime locations
               </p>
@@ -96,7 +90,7 @@ const Index = () => {
                   Start Your Search <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-            </motion.div>
+            </div>
           </div>
         </div>
 
