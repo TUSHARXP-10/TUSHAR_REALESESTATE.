@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
+import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo";
 import heroBanner from "@/assets/hero-banner.jpg";
 import building1 from "@/assets/building-1.jpg";
 import building2 from "@/assets/building-2.jpg";
@@ -64,29 +65,6 @@ const Index = () => {
     { icon: TrendingUp, value: "25+", label: "Years Experience" },
   ];
 
-  const testimonials = [
-    {
-      name: "Rajesh Kumar",
-      role: "Homeowner",
-      content:
-        "PropertyHub helped us find our dream home in Pune. The entire process was smooth and professional. Highly recommended!",
-      image: building1,
-    },
-    {
-      name: "Priya Sharma",
-      role: "Investor",
-      content:
-        "Excellent service and genuine properties. The team was very helpful in understanding my investment needs.",
-      image: building2,
-    },
-    {
-      name: "Amit Patel",
-      role: "First-time Buyer",
-      content:
-        "As a first-time buyer, I was nervous, but PropertyHub made everything easy to understand. Great experience!",
-      image: building3,
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -274,40 +252,7 @@ const Index = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full hover:shadow-medium transition-shadow">
-                  <CardContent className="p-6 space-y-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-full overflow-hidden">
-                        <img
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold">{testimonial.name}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {testimonial.role}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      "{testimonial.content}"
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          <AnimatedTestimonialsDemo />
         </div>
       </section>
 
