@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
@@ -17,9 +18,30 @@ const COMMON_FEATURES = [
   'beach access', 'ocean views', 'near schools'
 ];
 
+// Common cities and areas
+const CITIES = [
+  { value: 'Mumbai', label: 'Mumbai', areas: ['Bandra West', 'Juhu', 'Andheri East', 'Powai', 'Worli', 'BKC', 'Malad West', 'Goregaon', 'Colaba', 'Versova', 'Kandivali', 'Thane', 'Lower Parel', 'Dadar', 'Chembur', 'Khar', 'Nariman Point', 'Borivali', 'Prabhadevi', 'Santacruz', 'Lokhandwala', 'Vile Parle', 'Mulund', 'Ghatkopar', 'Wadala', 'Fort', 'Kurla', 'Malabar Hill', 'Matunga', 'Bhandup', 'Oshiwara'] },
+  { value: 'Pune', label: 'Pune', areas: ['Hinjewadi', 'Koregaon Park', 'Wakad', 'Baner', 'Aundh', 'Magarpatta', 'Kharadi', 'Pimple Saudagar', 'Hadapsar', 'Viman Nagar', 'Pimpri', 'Bavdhan', 'Katraj', 'Kalyani Nagar', 'Chinchwad', 'Kondhwa', 'Sus', 'Warje', 'Shivaji Nagar', 'Kothrud', 'Wagholi', 'Undri', 'Sinhagad Road', 'Deccan', 'Pashan', 'Dhanori', 'Vishrantwadi', 'Camp', 'Ravet'] },
+  { value: 'Bangalore', label: 'Bangalore', areas: ['Whitefield', 'Sarjapur Road', 'Electronic City', 'Koramangala', 'Indiranagar', 'HSR Layout', 'Hennur', 'Marathahalli', 'Bellandur', 'MG Road', 'Yelahanka', 'Devanahalli', 'JP Nagar', 'Jayanagar', 'Malleshwaram', 'Bannerghatta Road', 'Ramamurthy Nagar', 'Kengeri', 'Rajaji Nagar', 'Hoodi', 'Jakkur', 'Bommanahalli', 'Brigade Road', 'Thanisandra', 'Kadugodi', 'Kalyan Nagar', 'Richmond Town', 'Nagarbhavi', 'Hebbal', 'CV Raman Nagar'] },
+];
+
 export const PropertyFilters = ({ filters, onFiltersChange }: PropertyFiltersProps) => {
+  const [selectedCity, setSelectedCity] = useState<string>('');
+  const [availableAreas, setAvailableAreas] = useState<string[]>([]);
+
   const updateFilter = (key: keyof Filters, value: any) => {
     onFiltersChange({ ...filters, [key]: value });
+  };
+
+  const handleCityChange = (city: string) => {
+    setSelectedCity(city);
+    const cityData = CITIES.find(c => c.value === city);
+    setAvailableAreas(cityData?.areas || []);
+    updateFilter('city', city);
+    // Reset location when city changes
+    if (filters.location && city) {
+      updateFilter('location', '');
+    }
   };
 
   const addFeature = (feature: string) => {
@@ -65,13 +87,40 @@ export const PropertyFilters = ({ filters, onFiltersChange }: PropertyFiltersPro
         {/* City */}
         <div className="space-y-2">
           <Label htmlFor="city">City</Label>
-          <Input
-            id="city"
-            placeholder="Enter city name"
-            value={filters.city || ''}
-            onChange={(e) => updateFilter('city', e.target.value)}
-          />
+          <Select value={filters.city || ''} onValueChange={handleCityChange}>
+            <SelectTrigger id="city">
+              <SelectValue placeholder="Select city" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="">All Cities</SelectItem>
+              {CITIES.map((city) => (
+                <SelectItem key={city.value} value={city.value}>
+                  {city.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
+
+        {/* Area/Location - Shows when city is selected */}
+        {selectedCity && availableAreas.length > 0 && (
+          <div className="space-y-2">
+            <Label htmlFor="location">Area</Label>
+            <Select value={filters.location || ''} onValueChange={(v) => updateFilter('location', v)}>
+              <SelectTrigger id="location">
+                <SelectValue placeholder="Select area" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px]">
+                <SelectItem value="">All Areas</SelectItem>
+                {availableAreas.map((area) => (
+                  <SelectItem key={area} value={area}>
+                    {area}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
 
         {/* Price Range */}
         <div className="grid grid-cols-2 gap-4">

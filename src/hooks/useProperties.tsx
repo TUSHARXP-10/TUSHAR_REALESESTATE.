@@ -26,6 +26,7 @@ export interface Property {
 
 export interface PropertyFilters {
   city?: string;
+  location?: string;
   minPrice?: number;
   maxPrice?: number;
   propertyType?: string;
@@ -48,6 +49,10 @@ export const useProperties = (filters?: PropertyFilters) => {
       // Apply filters
       if (filters?.city) {
         query = query.ilike('city', `%${filters.city}%`);
+      }
+
+      if (filters?.location) {
+        query = query.ilike('location', `%${filters.location}%`);
       }
 
       if (filters?.minPrice) {

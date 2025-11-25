@@ -57,9 +57,29 @@ const Projects = () => {
             <h1 className="text-4xl md:text-5xl font-display font-bold text-center mb-4">
               Featured Properties
             </h1>
-            <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto mb-8">
               Explore our carefully curated selection of premium properties
             </p>
+            
+            {/* Search Bar */}
+            <div className="max-w-3xl mx-auto mt-8">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search by location, property type, or area (e.g., Bandra, Mumbai, Villa)..."
+                  value={filters.searchQuery || ''}
+                  onChange={(e) => setFilters({ ...filters, searchQuery: e.target.value })}
+                  className="w-full px-6 py-4 text-lg rounded-full border-2 border-primary/20 bg-background shadow-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                />
+                <Button
+                  size="lg"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full"
+                  onClick={() => {}}
+                >
+                  Search
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
         
