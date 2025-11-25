@@ -53,6 +53,12 @@ export const SiteVisitForm = ({ propertyId, propertyTitle }: SiteVisitFormProps)
       });
 
       setFormData({ name: "", email: "", phone: "", scheduledAt: "" });
+      
+      // Close dialog after successful submission
+      setTimeout(() => {
+        const closeButton = document.querySelector('[data-dialog-close]') as HTMLButtonElement;
+        if (closeButton) closeButton.click();
+      }, 1000);
     } catch (error) {
       toast({
         title: "Error",
