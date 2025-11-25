@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Bed, Bath, Maximize, MapPin, ArrowRight } from "lucide-react";
+import { Bed, Bath, Maximize, MapPin, ArrowRight, IndianRupee } from "lucide-react";
 import { Property } from "@/hooks/useProperties";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -68,9 +68,12 @@ export const EnhancedPropertyCard = ({
         </div>
 
         <div className="flex items-baseline gap-1">
-          <span className="text-2xl font-bold text-primary">
-            ${property.price.toLocaleString()}
-          </span>
+          <div className="flex items-center gap-1">
+            <IndianRupee className="h-5 w-5 text-primary" />
+            <span className="text-2xl font-bold text-primary">
+              {property.price.toLocaleString('en-IN')}
+            </span>
+          </div>
           {property.status === 'for_rent' && (
             <span className="text-sm text-muted-foreground">/month</span>
           )}

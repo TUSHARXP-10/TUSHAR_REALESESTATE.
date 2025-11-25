@@ -2,7 +2,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Property } from "@/hooks/useProperties";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Building, Bed, Bath, Maximize, Calendar, MapPin, DollarSign } from "lucide-react";
+import { Building, Bed, Bath, Maximize, Calendar, MapPin, IndianRupee } from "lucide-react";
 
 interface PropertyComparisonDialogProps {
   open: boolean;
@@ -52,9 +52,9 @@ export const PropertyComparisonDialog = ({ open, onOpenChange, properties }: Pro
 
                 {/* Price */}
                 <div className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4 text-primary" />
+                  <IndianRupee className="h-4 w-4 text-primary" />
                   <span className="text-xl font-bold text-primary">
-                    ${property.price.toLocaleString()}
+                    ₹{property.price.toLocaleString('en-IN')}
                     {property.status === 'for_rent' && <span className="text-sm font-normal">/month</span>}
                   </span>
                 </div>

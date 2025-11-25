@@ -7,13 +7,17 @@ import { PropertyImageGallery } from "@/components/PropertyImageGallery";
 import { useProperty } from "@/hooks/useProperties";
 import { 
   Bed, Bath, Maximize, Calendar, MapPin, Building, 
-  Home, ArrowLeft, Loader2, CheckCircle2 
+  Home, ArrowLeft, Loader2, CheckCircle2, IndianRupee
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { SiteVisitForm } from "@/components/SiteVisitForm";
+import { useState } from "react";
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const { data: property, isLoading, error } = useProperty(id || '');
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (isLoading) {
     return (
@@ -71,9 +75,9 @@ const ProjectDetail = () => {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
               {/* Image Gallery */}
-              {property.images && property.images.length > 0 && (
+              {(property.images || property.main_image) && (
                 <PropertyImageGallery 
-                  images={property.images} 
+                  images={property.images && property.images.length > 0 ? property.images : property.main_image ? [property.main_image] : []} 
                   title={property.title}
                 />
               )}
@@ -96,9 +100,12 @@ const ProjectDetail = () => {
                 </div>
 
                 <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-4xl font-bold text-primary">
-                    ${property.price.toLocaleString()}
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <IndianRupee className="h-8 w-8 text-primary" />
+                    <span className="text-4xl font-bold text-primary">
+                      {property.price.toLocaleString('en-IN')}
+                    </span>
+                  </div>
                   {property.status === 'for_rent' && (
                     <span className="text-lg text-muted-foreground">/month</span>
                   )}
@@ -204,9 +211,22 @@ const ProjectDetail = () => {
               <div className="bg-card border rounded-lg p-6 shadow-soft sticky top-6">
                 <h3 className="text-xl font-bold mb-4">Interested in this property?</h3>
                 <div className="space-y-3">
-                  <Button className="w-full" size="lg">
-                    Schedule a Viewing
-                  </Button>
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button className="w-full" size="lg">
+                        Schedule a Viewing
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Schedule a Site Visit</DialogTitle>
+                      </DialogHeader>
+                      <SiteVisitForm 
+                        propertyId={property.id} 
+                        propertyTitle={property.title}
+                      />
+                    </DialogContent>
+                  </Dialog>
                   <Button className="w-full" variant="outline" size="lg" asChild>
                     <Link to="/contact">Contact Agent</Link>
                   </Button>
