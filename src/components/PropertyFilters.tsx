@@ -34,13 +34,20 @@ export const PropertyFilters = ({ filters, onFiltersChange }: PropertyFiltersPro
   };
 
   const handleCityChange = (city: string) => {
-    setSelectedCity(city);
-    const cityData = CITIES.find(c => c.value === city);
-    setAvailableAreas(cityData?.areas || []);
-    updateFilter('city', city);
-    // Reset location when city changes
-    if (filters.location && city) {
-      updateFilter('location', '');
+    if (city === 'all') {
+      setSelectedCity('');
+      setAvailableAreas([]);
+      updateFilter('city', undefined);
+      updateFilter('location', undefined);
+    } else {
+      setSelectedCity(city);
+      const cityData = CITIES.find(c => c.value === city);
+      setAvailableAreas(cityData?.areas || []);
+      updateFilter('city', city);
+      // Reset location when city changes
+      if (filters.location && city) {
+        updateFilter('location', undefined);
+      }
     }
   };
 
@@ -87,12 +94,12 @@ export const PropertyFilters = ({ filters, onFiltersChange }: PropertyFiltersPro
         {/* City */}
         <div className="space-y-2">
           <Label htmlFor="city">City</Label>
-          <Select value={filters.city || ''} onValueChange={handleCityChange}>
+          <Select value={filters.city || 'all'} onValueChange={handleCityChange}>
             <SelectTrigger id="city">
               <SelectValue placeholder="Select city" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Cities</SelectItem>
+              <SelectItem value="all">All Cities</SelectItem>
               {CITIES.map((city) => (
                 <SelectItem key={city.value} value={city.value}>
                   {city.label}
@@ -106,12 +113,15 @@ export const PropertyFilters = ({ filters, onFiltersChange }: PropertyFiltersPro
         {selectedCity && availableAreas.length > 0 && (
           <div className="space-y-2">
             <Label htmlFor="location">Area</Label>
-            <Select value={filters.location || ''} onValueChange={(v) => updateFilter('location', v)}>
+            <Select 
+              value={filters.location || 'all'} 
+              onValueChange={(v) => updateFilter('location', v === 'all' ? undefined : v)}
+            >
               <SelectTrigger id="location">
                 <SelectValue placeholder="Select area" />
               </SelectTrigger>
               <SelectContent className="max-h-[300px]">
-                <SelectItem value="">All Areas</SelectItem>
+                <SelectItem value="all">All Areas</SelectItem>
                 {availableAreas.map((area) => (
                   <SelectItem key={area} value={area}>
                     {area}
