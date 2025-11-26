@@ -1,73 +1,71 @@
-# Welcome to your Lovable project
+# Blueprint Realty
 
-## Project info
+Professional real estate web application built with Vite, React, TypeScript, Tailwind CSS, and shadcn-ui. It features property listings, comparisons, lead management, and an admin dashboard.
 
-**URL**: https://lovable.dev/projects/0aef1900-e0ab-4f08-8d76-af34649940ec
+## Features
 
-## How can I edit this code?
+- Responsive landing and property pages
+- Advanced filters, comparisons, and gallery
+- Lead capture and site visit forms
+- Admin dashboard for properties, leads, users, and orders
+- Supabase integration for data and auth
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- Vite, React 18, TypeScript
+- Tailwind CSS, shadcn-ui, Radix UI
+- TanStack Query
+- Supabase
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0aef1900-e0ab-4f08-8d76-af34649940ec) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+Prerequisites:
 
-**Use your preferred IDE**
+- Node.js 18+
+- npm 9+
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Installation:
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Build & Preview:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run build
+npm run preview
+```
 
-**Use GitHub Codespaces**
+## Environment Variables
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Create `.env` with:
 
-## What technologies are used for this project?
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+```
 
-This project is built with:
+## Scripts
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `npm run dev` — start dev server
+- `npm run build` — production build
+- `npm run preview` — preview build
+- `npm run lint` — lint codebase
 
-## How can I deploy this project?
+## Project Structure
 
-Simply open [Lovable](https://lovable.dev/projects/0aef1900-e0ab-4f08-8d76-af34649940ec) and click on Share -> Publish.
+- `src/pages` — route pages
+- `src/components` — UI and feature components
+- `src/hooks` — React hooks
+- `src/integrations/supabase` — Supabase client and types
+- `public` — static assets
 
-## Can I connect a custom domain to my Lovable project?
+## Deployment
 
-Yes, you can!
+Any static hosting supporting Vite builds (e.g., Netlify, Vercel). Serve the `dist` folder after `npm run build`.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+This project is licensed under the MIT License.
