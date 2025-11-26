@@ -6,18 +6,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PropertyCard from "@/components/PropertyCard";
 import AnimatedTestimonialsDemo from "@/components/animated-testimonials-demo";
 import TimelineDemo from "@/components/timeline-demo";
 import LayoutTextFlipDemo from "@/components/layout-text-flip-demo";
+import { EMICalculator } from "@/components/EMICalculator";
+import { PropertyComparison } from "@/components/PropertyComparison";
+import { useProperties } from "@/hooks/useProperties";
+import { EnhancedPropertyCard } from "@/components/EnhancedPropertyCard";
 import heroBanner from "@/assets/hero-banner.jpg";
-import building1 from "@/assets/building-1.jpg";
-import building2 from "@/assets/building-2.jpg";
-import building3 from "@/assets/building-3.jpg";
-import aboutTeam from "@/assets/about-team.jpg";
 
 const Index = () => {
   const [selectedCity, setSelectedCity] = useState("");
+  const { data: properties = [] } = useProperties();
 
   const cities = [
     "PUNE",
@@ -26,38 +26,6 @@ const Index = () => {
     "DELHI",
     "HYDERABAD",
     "CHENNAI",
-  ];
-
-  const featuredProjects = [
-    {
-      id: "1",
-      image: building1,
-      name: "Green Valley Heights",
-      location: "Kharadi, Pune",
-      price: "85L+",
-      type: "Residential",
-      bhk: "2 & 3 BHK",
-      match: 90,
-    },
-    {
-      id: "2",
-      image: building2,
-      name: "Tech Park Plaza",
-      location: "Hinjewadi, Pune",
-      price: "2.5Cr+",
-      type: "Commercial",
-      match: 80,
-    },
-    {
-      id: "3",
-      image: building3,
-      name: "Sunset Residency",
-      location: "Wakad, Pune",
-      price: "95L+",
-      type: "Residential",
-      bhk: "3 & 4 BHK",
-      match: 75,
-    },
   ];
 
   const stats = [
@@ -131,7 +99,7 @@ const Index = () => {
             className="text-center mb-12"
           >
             <h2 className="text-4xl font-display font-bold mb-4">
-              Featured Projects
+              Featured Properties
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Explore our handpicked selection of premium properties
@@ -139,15 +107,15 @@ const Index = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProjects.map((project, index) => (
+            {properties.slice(0, 6).map((property, index) => (
               <motion.div
-                key={project.id}
+                key={property.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <PropertyCard {...project} />
+                <EnhancedPropertyCard property={property} />
               </motion.div>
             ))}
           </div>
@@ -155,9 +123,90 @@ const Index = () => {
           <div className="text-center mt-12">
             <Button asChild size="lg" variant="outline">
               <Link to="/projects">
-                View All Projects <ArrowRight className="ml-2 h-5 w-5" />
+                View All Properties <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* EMI Calculator Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-display font-bold mb-4">
+              Plan Your Investment
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Use our EMI calculator to estimate your monthly loan payments
+            </p>
+          </motion.div>
+
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <EMICalculator />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Property Comparison Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl font-display font-bold mb-4">
+              Compare Properties
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Select and compare properties side by side to make informed decisions
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <PropertyComparison />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="text-center shadow-soft hover:shadow-medium transition-shadow">
+                  <CardContent className="pt-6">
+                    <stat.icon className="h-12 w-12 mx-auto mb-4 text-primary" />
+                    <h3 className="text-3xl font-bold mb-2">{stat.value}</h3>
+                    <p className="text-muted-foreground">{stat.label}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
