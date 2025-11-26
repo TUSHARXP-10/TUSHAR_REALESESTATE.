@@ -5,23 +5,27 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, MenuItem, HoveredLink } from "@/components/ui/navbar-menu";
 import logo from "@/assets/logo.png";
-
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-
-  const navLinks = [
-    { path: "/about", label: "ABOUT US" },
-    { path: "/projects", label: "PROJECTS" },
-    { path: "/find-home", label: "FIND YOUR PERFECT HOME" },
-    { path: "/blog", label: "BLOG POST" },
-    { path: "/contact", label: "CONTACT US" },
-  ];
-
+  const navLinks = [{
+    path: "/about",
+    label: "ABOUT US"
+  }, {
+    path: "/projects",
+    label: "PROJECTS"
+  }, {
+    path: "/find-home",
+    label: "FIND YOUR PERFECT HOME"
+  }, {
+    path: "/blog",
+    label: "BLOG POST"
+  }, {
+    path: "/contact",
+    label: "CONTACT US"
+  }];
   const isActive = (path: string) => location.pathname === path;
-
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border shadow-soft">
+  return <nav className="fixed top-0 left-0 right-0 z-50 bg-background border-b border-border shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -29,9 +33,8 @@ const Navigation = () => {
             <div className="relative w-12 h-12 overflow-hidden rounded-full transition-transform duration-300 group-hover:scale-110">
               <img src={logo} alt="Logo" className="w-full h-full object-cover" />
             </div>
-            <span className="font-display text-xl font-bold text-primary hidden md:block">
-              PropertyHub
-            </span>
+            <span className="font-display text-xl font-bold text-primary hidden md:block"> PropertyHub
+(Tushar.dev)</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -41,23 +44,12 @@ const Navigation = () => {
 
           {/* Right Actions */}
           <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden md:flex"
-              aria-label="Language selector"
-            >
+            <Button variant="ghost" size="icon" className="hidden md:flex" aria-label="Language selector">
               <Languages className="h-5 w-5" />
             </Button>
 
             {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
+            <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
               {isMenuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
             </Button>
           </div>
@@ -66,42 +58,30 @@ const Navigation = () => {
 
       {/* Mobile Menu */}
       <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden border-t border-border bg-background"
-          >
+        {isMenuOpen && <motion.div initial={{
+        opacity: 0,
+        height: 0
+      }} animate={{
+        opacity: 1,
+        height: "auto"
+      }} exit={{
+        opacity: 0,
+        height: 0
+      }} transition={{
+        duration: 0.3
+      }} className="lg:hidden border-t border-border bg-background">
             <div className="container mx-auto px-4 py-6 space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block py-3 px-4 rounded-lg transition-colors ${
-                    isActive(link.path)
-                      ? "bg-primary/10 text-primary font-semibold"
-                      : "text-foreground hover:bg-muted"
-                  }`}
-                >
+              {navLinks.map(link => <Link key={link.path} to={link.path} onClick={() => setIsMenuOpen(false)} className={`block py-3 px-4 rounded-lg transition-colors ${isActive(link.path) ? "bg-primary/10 text-primary font-semibold" : "text-foreground hover:bg-muted"}`}>
                   {link.label}
-                </Link>
-              ))}
+                </Link>)}
             </div>
-          </motion.div>
-        )}
+          </motion.div>}
       </AnimatePresence>
-    </nav>
-  );
+    </nav>;
 };
-
 function DesktopMenu() {
   const [active, setActive] = useState<string | null>(null);
-  
-  return (
-    <Menu setActive={setActive}>
+  return <Menu setActive={setActive}>
       <MenuItem setActive={setActive} active={active} item="About">
         <div className="flex flex-col space-y-4 text-sm">
           <HoveredLink href="/about">Our Story</HoveredLink>
@@ -125,8 +105,6 @@ function DesktopMenu() {
           <HoveredLink href="/contact">Contact Us</HoveredLink>
         </div>
       </MenuItem>
-    </Menu>
-  );
+    </Menu>;
 }
-
 export default Navigation;
